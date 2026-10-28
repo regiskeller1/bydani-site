@@ -28,7 +28,8 @@ const marqueeItems = ['Designer para redes sociais & projetos', 'A sua Designer 
           src={logo}
           alt="byDani Design Digital"
           class="hero__logo"
-          width={330}
+          widths={[300, 600, 911]}
+          sizes="(min-width: 960px) 272px, 220px"
           loading="eager"
           data-reveal
           style="--i: 0"
@@ -128,7 +129,7 @@ const marqueeItems = ['Designer para redes sociais & projetos', 'A sua Designer 
   <footer class="footer">
     <div class="footer__checker" aria-hidden="true"></div>
     <div class="footer__inner">
-      <Image src={logo} alt="byDani Design Digital" class="footer__logo" width={330} />
+      <Image src={logo} alt="byDani Design Digital" class="footer__logo" widths={[200, 400]} sizes="176px" />
       <a class="footer__sticker" href={contact.instagram.href} target="_blank" rel="noopener noreferrer">
         {contact.instagram.display}<span class="visually-hidden"> (abre em nova aba)</span>
       </a>
