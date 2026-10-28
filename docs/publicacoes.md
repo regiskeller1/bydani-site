@@ -27,4 +27,9 @@ enviar de novo; ou despublicar em Settings → Pages do repositório.
 
 ## Publicações
 
-_Nenhuma publicação ainda._
+- **28/out/2026**: prévia para a designer aprovar. `main` f274cf1 → branch `gh-pages`, em
+  https://regiskeller1.github.io/bydani-site/ (repo público `regiskeller1/bydani-site`). Autorizado
+  pelo usuário ("sobe no github pages pra eu mandar pra ela"). Antes: build limpo, `revisar-pagina`
+  ok, Lighthouse mobile 95/100/100/100. Conteúdo ainda **não aprovado** pela designer. Conferido
+  depois: página, CSS, favicon e sitemap respondem 200; visual igual à prévia local.
+  Voltar: Settings → Pages → despublicar, ou enviar build de commit anterior.
