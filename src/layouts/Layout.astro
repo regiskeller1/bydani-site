@@ -14,6 +14,8 @@ interface Props {
 
 const { title, description } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+// caminhos de public/ precisam do base (no GitHub Pages o site mora em /<repo>/)
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const og = await getImage({ src: ogSource, width: 900, format: 'jpg' });
 const ogUrl = new URL(og.src, Astro.site);
 ---
@@ -26,8 +28,8 @@ const ogUrl = new URL(og.src, Astro.site);
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
+    <link rel="sitemap" href={`${base}sitemap-index.xml`} />
     <meta name="theme-color" content="#ef0066" />
 
     <meta property="og:type" content="website" />

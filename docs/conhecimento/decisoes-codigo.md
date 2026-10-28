@@ -6,8 +6,13 @@ Injetado ao tocar `src/`, `components/`, `pages/`, `package.json` e arquivos de 
 
 - **Astro 7, estático, CSS puro com tokens** (escolha do usuário): otimiza imagem (AVIF/WebP) e gera
   sitemap; cresce fácil se vier portfólio. Pacotes: `@astrojs/sitemap` e Fontsource (fontes locais) (28/out/2026)
-- **Hospedagem: A DEFINIR.** `site` no `astro.config.mjs` e `public/robots.txt` assumem
-  `https://bydani.com.br` (domínio do e-mail dela); confirmar antes de publicar (28/out/2026)
+- **Prévia no GitHub Pages** (escolha do usuário): repo público `regiskeller1/bydani-site`, build
+  local enviado à branch `gh-pages` (o token do `gh` não tem escopo `workflow`, então sem Actions).
+  Passo a passo em [../publicacoes.md](../publicacoes.md) (28/out/2026)
+- **`SITE_URL` e `BASE_PATH` (com barra final) definem endereço e subpasta**; sem eles o build assume
+  `https://bydani.com.br` em `/` (domínio final A DEFINIR). Sem a barra final o sitemap duplica a home.
+  No Git Bash use `MSYS_NO_PATHCONV=1`, senão `/bydani-site/` vira caminho do Windows (28/out/2026)
+- **`.nojekyll` na `gh-pages` é obrigatório**: sem ele o Pages esconde a pasta `_astro` (28/out/2026)
 - **Imagens-fonte do site ficam em `src/assets/`** (o Astro só otimiza o que é importado de `src/`);
   originais pesados seguem em `assets/originais/`, fora do git (28/out/2026)
 - **Conteúdo e contatos num lugar só**: `src/data/site.ts` (texto copiado do bio.site dela) (28/out/2026)
