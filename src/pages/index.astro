@@ -1,0 +1,661 @@
+---
+import { Image, Picture } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import ContactCard from '../components/ContactCard.astro';
+import Icon from '../components/Icon.astro';
+import Squiggles from '../components/Squiggles.astro';
+import Star from '../components/Star.astro';
+import logo from '../assets/logo-bydani.png';
+import dani from '../assets/dani.jpg';
+import { contact, site } from '../data/site';
+
+const marqueeItems = ['Designer para redes sociais & projetos', 'A sua Designer favorita :)'];
+---
+
+<Layout title={site.title} description={site.description}>
+  <a class="skip-link" href="#contato">Ir para o contato</a>
+
+  <main>
+    <section class="hero">
+      <Squiggles />
+      <Star class="deco deco--a" color="var(--color-lime)" />
+      <Star class="deco deco--b" color="var(--color-orange)" />
+      <Star class="deco deco--c" color="var(--color-pink-soft)" />
+      <Star class="deco deco--d" color="var(--color-lime)" />
+
+      <div class="hero__inner">
+        <Image
+          src={logo}
+          alt="byDani Design Digital"
+          class="hero__logo"
+          width={330}
+          loading="eager"
+          data-reveal
+          style="--i: 0"
+        />
+
+        <div class="hero__photo" data-reveal style="--i: 1; --reveal-rotate: 6deg">
+          <Star class="hero__photo-star" color="var(--color-orange)" />
+          <Picture
+            src={dani}
+            formats={['avif', 'webp']}
+            widths={[320, 480, 640, 900]}
+            sizes="(min-width: 960px) 420px, 78vw"
+            alt="Dani, de cabelo preto liso e blusa listrada azul, sorrindo de leve sobre um fundo xadrez rosa e creme com o nome byDani"
+            loading="eager"
+            fetchpriority="high"
+            class="hero__img"
+          />
+          <span class="hero__tape" aria-hidden="true"></span>
+        </div>
+
+        <div class="hero__text">
+          <h1 class="hero__title" data-reveal style="--i: 2">
+            <span class="hero__title-small">A sua</span>
+            <span class="hero__title-big">Designer</span>
+            <span class="hero__title-script">favorita :)</span>
+          </h1>
+          <p class="hero__tag" data-reveal style="--i: 3">{site.tagline}</p>
+          <p class="hero__intro" data-reveal style="--i: 4">{site.intro}</p>
+          <a class="hero__cta" href="#contato" data-reveal style="--i: 5">
+            Contato <span class="hero__cta-arrow" aria-hidden="true">↓</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        {
+          [0, 1].map(() => (
+            <div class="marquee__group">
+              {[...marqueeItems, ...marqueeItems].map((item) => (
+                <>
+                  <span>{item}</span>
+                  <Star class="marquee__star" color="var(--color-lime)" />
+                </>
+              ))}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <section id="contato" class="contact" aria-labelledby="contato-titulo">
+      <Star class="deco deco--e" color="var(--color-lime)" />
+      <Star class="deco deco--f" color="var(--color-pink-soft)" />
+
+      <div class="contact__inner">
+        <h2 id="contato-titulo" class="contact__title" data-reveal>
+          Entre em <em>contato</em> comigo
+        </h2>
+
+        <div class="contact__grid">
+          <div class="contact__featured">
+            <ContactCard
+              icon="whatsapp"
+              title="WhatsApp"
+              href={contact.whatsapp.href}
+              display={contact.whatsapp.display}
+              note={contact.whatsapp.label}
+              tone="lime"
+              external
+              index={0}
+            />
+          </div>
+          <ContactCard
+            icon="email"
+            title="E-mail"
+            href={contact.email.href}
+            display={contact.email.display}
+            tone="pink"
+            index={1}
+          />
+          <ContactCard
+            icon="instagram"
+            title="Instagram"
+            href={contact.instagram.href}
+            display={contact.instagram.display}
+            tone="orange"
+            external
+            index={2}
+          />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__checker" aria-hidden="true"></div>
+    <div class="footer__inner">
+      <Image src={logo} alt="byDani Design Digital" class="footer__logo" width={330} />
+      <a class="footer__sticker" href={contact.instagram.href} target="_blank" rel="noopener noreferrer">
+        {contact.instagram.display}<span class="visually-hidden"> (abre em nova aba)</span>
+      </a>
+      <p class="footer__copy">© 2026 byDani ✸ Design Digital</p>
+    </div>
+  </footer>
+
+  <a class="float-wa" href={contact.whatsapp.href} target="_blank" rel="noopener noreferrer">
+    <Icon name="whatsapp" class="float-wa__icon" />
+    <span class="visually-hidden">WhatsApp da byDani (abre em nova aba)</span>
+  </a>
+</Layout>
+
+<style>
+  /* ---------- hero ---------- */
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: var(--space-6) var(--space-4) var(--space-9);
+    background: var(--color-magenta);
+    color: var(--color-cream);
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    background-image: var(--texture-grain);
+    opacity: 0.2;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+
+  .hero__inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-areas: 'logo' 'photo' 'text';
+    justify-items: center;
+    gap: var(--space-6);
+    max-width: var(--content-max);
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .hero__logo {
+    grid-area: logo;
+    width: clamp(11rem, 8rem + 12vw, 17rem);
+    height: auto;
+  }
+
+  .hero__photo {
+    grid-area: photo;
+    position: relative;
+    width: min(78vw, 26rem);
+    margin-block: var(--space-4);
+  }
+
+  :global(.hero__photo-star) {
+    position: absolute;
+    inset: -22%;
+    width: 144%;
+    max-width: none;
+    z-index: -1;
+    animation: spin 48s linear infinite;
+  }
+
+  .hero__photo :global(img) {
+    width: 100%;
+    height: auto;
+    border: 6px solid var(--color-cream);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-hard-lg);
+    transform: rotate(3deg);
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .hero__tape {
+    position: absolute;
+    top: -0.9rem;
+    left: 50%;
+    width: 6.5rem;
+    height: 1.9rem;
+    background: var(--color-lavender);
+    opacity: 0.88;
+    transform: translateX(-50%) rotate(-6deg);
+    mask: conic-gradient(from 45deg at left, #0000 25%, #000 0) 0 50% / 51% 8px repeat-y,
+      conic-gradient(from -135deg at right, #0000 25%, #000 0) 100% 50% / 51% 8px repeat-y;
+  }
+
+  .hero__text {
+    grid-area: text;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-5);
+  }
+
+  .hero__title {
+    display: flex;
+    flex-direction: column;
+    align-items: inherit;
+    font-weight: 400;
+  }
+
+  .hero__title-small {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-wine);
+  }
+
+  .hero__title-big {
+    font-family: var(--font-display);
+    font-size: clamp(4.25rem, 1rem + 15vw, 9.5rem);
+    line-height: 0.92;
+    text-transform: uppercase;
+    color: var(--color-cream);
+    filter: url(#fuzzy);
+  }
+
+  .hero__title-script {
+    display: inline-block;
+    margin-top: -0.4em;
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-style: italic;
+    font-weight: 900;
+    font-variation-settings: 'SOFT' 100;
+    color: var(--color-lime);
+    -webkit-text-stroke: 10px var(--color-wine);
+    paint-order: stroke fill;
+    animation: wiggle 3.2s ease-in-out infinite;
+  }
+
+  .hero__tag {
+    padding: var(--space-1) var(--space-3);
+    background: var(--color-wine);
+    color: var(--color-cream);
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    box-shadow: 4px 4px 0 var(--color-lime);
+    transform: rotate(-1.5deg);
+  }
+
+  .hero__intro {
+    position: relative;
+    max-width: 32rem;
+    padding: var(--space-6) var(--space-5) var(--space-5);
+    background: var(--color-paper);
+    color: var(--color-wine);
+    font-size: var(--text-lg);
+    line-height: 1.45;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-hard);
+    transform: rotate(1deg);
+  }
+
+  .hero__intro::before {
+    content: '';
+    position: absolute;
+    top: -0.75rem;
+    left: 50%;
+    width: 5rem;
+    height: 1.5rem;
+    background: var(--color-lime);
+    opacity: 0.9;
+    transform: translateX(-50%) rotate(3deg);
+  }
+
+  .hero__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    background: var(--color-lime);
+    color: var(--color-wine);
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    text-transform: uppercase;
+    text-decoration: none;
+    border: var(--border-thick) solid var(--color-wine);
+    border-radius: var(--radius-pill);
+    box-shadow: var(--shadow-hard);
+    transition:
+      transform 0.3s var(--ease-bounce),
+      box-shadow 0.3s var(--ease-bounce);
+  }
+
+  .hero__cta:hover {
+    transform: translate(-3px, -3px) rotate(-2deg);
+    box-shadow: 9px 9px 0 var(--color-wine);
+  }
+
+  .hero__cta-arrow {
+    display: inline-block;
+    animation: bounce 1.4s ease-in-out infinite;
+  }
+
+  @media (min-width: 960px) {
+    .hero {
+      padding-top: var(--space-8);
+    }
+
+    .hero__inner {
+      grid-template-columns: 1.15fr 0.85fr;
+      grid-template-areas: 'logo photo' 'text photo';
+      align-items: center;
+      justify-items: start;
+      column-gap: var(--space-8);
+      row-gap: var(--space-5);
+      text-align: left;
+    }
+
+    .hero__text {
+      align-items: flex-start;
+      align-self: start;
+    }
+
+    .hero__photo {
+      justify-self: center;
+      width: 100%;
+      max-width: 26rem;
+    }
+  }
+
+  /* ---------- estrelas decorativas ---------- */
+  :global(.deco) {
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+    animation: twinkle 5s ease-in-out infinite;
+  }
+
+  :global(.deco--a) {
+    top: 6%;
+    left: -2rem;
+    width: 7rem;
+  }
+
+  :global(.deco--b) {
+    top: 38%;
+    right: -2.5rem;
+    width: 8rem;
+    animation-delay: -1.5s;
+  }
+
+  :global(.deco--c) {
+    bottom: 12%;
+    left: 6%;
+    width: 3.5rem;
+    animation-delay: -3s;
+  }
+
+  :global(.deco--d) {
+    top: 10%;
+    right: 12%;
+    width: 2.75rem;
+    animation-delay: -2s;
+  }
+
+  :global(.deco--e) {
+    top: 2rem;
+    right: -2rem;
+    width: 7.5rem;
+  }
+
+  :global(.deco--f) {
+    bottom: 3rem;
+    left: -2.5rem;
+    width: 9rem;
+    animation-delay: -2.5s;
+  }
+
+  /* ---------- faixa corrida ---------- */
+  .marquee {
+    position: relative;
+    z-index: 2;
+    margin: calc(var(--space-7) * -1) -2rem 0;
+    padding: var(--space-3) 0;
+    overflow: hidden;
+    background: var(--color-wine);
+    color: var(--color-cream);
+    border-block: var(--border-thick) solid var(--color-lime);
+    transform: rotate(-2deg);
+  }
+
+  .marquee__track {
+    display: flex;
+    width: max-content;
+    animation: marquee 30s linear infinite;
+  }
+
+  .marquee__group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    padding-right: var(--space-5);
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  :global(.marquee__star) {
+    width: 1.4em;
+    animation: spin 6s linear infinite;
+  }
+
+  /* ---------- contato ---------- */
+  .contact {
+    position: relative;
+    overflow-x: clip;
+    margin-top: calc(var(--lace-r) + var(--space-6));
+    padding: var(--space-8) var(--space-4) var(--space-9);
+    background: var(--color-cream);
+  }
+
+  /* borda de renda com furinhos, como na proposta */
+  .contact::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 100%;
+    height: var(--lace-r);
+    background:
+      radial-gradient(circle at 50% 62%, var(--color-magenta) 0 3px, transparent 3.5px) 0 0 / calc(var(--lace-r) * 2)
+        var(--lace-r) repeat-x,
+      radial-gradient(circle at 50% 100%, var(--color-cream) 0 var(--lace-r), transparent calc(var(--lace-r) + 0.5px)) 0 0 /
+        calc(var(--lace-r) * 2) var(--lace-r) repeat-x;
+  }
+
+  .contact__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 56rem;
+    margin: 0 auto;
+  }
+
+  .contact__title {
+    margin-bottom: var(--space-5);
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-weight: 900;
+    font-variation-settings: 'SOFT' 100;
+    line-height: 1.05;
+    text-align: center;
+    color: var(--color-wine);
+  }
+
+  .contact__title em {
+    color: var(--color-magenta);
+    font-style: italic;
+  }
+
+  .contact__grid {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .contact__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .contact__featured {
+      grid-column: 1 / -1;
+    }
+  }
+
+  /* ---------- rodapé ---------- */
+  .footer {
+    background: var(--color-wine);
+    color: var(--color-cream);
+  }
+
+  .footer__checker {
+    height: 56px;
+    background: conic-gradient(
+        var(--color-cream) 25%,
+        var(--color-wine) 0 50%,
+        var(--color-cream) 0 75%,
+        var(--color-wine) 0
+      )
+      0 0 / 56px 56px;
+  }
+
+  .footer__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-5);
+    padding: var(--space-7) var(--space-4) var(--space-9);
+    text-align: center;
+  }
+
+  .footer__logo {
+    width: 11rem;
+    height: auto;
+  }
+
+  .footer__sticker {
+    padding: var(--space-2) var(--space-5);
+    background: var(--color-pink-soft);
+    color: var(--color-wine);
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    font-weight: 900;
+    font-variation-settings: 'SOFT' 100;
+    text-decoration: none;
+    border: var(--border-thick) solid var(--color-cream);
+    border-radius: var(--radius-pill);
+    transform: rotate(-3deg);
+    transition: transform 0.3s var(--ease-bounce);
+  }
+
+  .footer__sticker:hover {
+    transform: rotate(2deg) scale(1.06);
+  }
+
+  .footer__copy {
+    font-size: var(--text-sm);
+    opacity: 0.85;
+  }
+
+  /* ---------- botão fixo do whatsapp ---------- */
+  .float-wa {
+    position: fixed;
+    right: var(--space-4);
+    bottom: var(--space-4);
+    z-index: 50;
+    display: grid;
+    place-items: center;
+    width: 3.75rem;
+    height: 3.75rem;
+    background: var(--color-lime);
+    color: var(--color-wine);
+    border: var(--border-thick) solid var(--color-wine);
+    border-radius: 50%;
+    box-shadow: 4px 4px 0 var(--color-wine);
+    transition: transform 0.3s var(--ease-bounce);
+  }
+
+  .float-wa::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border: var(--border-thick) solid var(--color-lime);
+    border-radius: 50%;
+    animation: pulse 2.4s ease-out infinite;
+  }
+
+  .float-wa:hover {
+    transform: rotate(-10deg) scale(1.08);
+  }
+
+  :global(.float-wa__icon) {
+    width: 1.9rem;
+    height: 1.9rem;
+  }
+
+  /* ---------- movimento ---------- */
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: rotate(3deg) translateY(0);
+    }
+    50% {
+      transform: rotate(1deg) translateY(-10px);
+    }
+  }
+
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: rotate(-5deg);
+    }
+    50% {
+      transform: rotate(-1deg) scale(1.04);
+    }
+  }
+
+  @keyframes twinkle {
+    0%,
+    100% {
+      transform: rotate(0deg) scale(1);
+    }
+    50% {
+      transform: rotate(18deg) scale(1.12);
+    }
+  }
+
+  @keyframes bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(4px);
+    }
+  }
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes pulse {
+    from {
+      transform: scale(1);
+      opacity: 0.9;
+    }
+    to {
+      transform: scale(1.55);
+      opacity: 0;
+    }
+  }
+</style>

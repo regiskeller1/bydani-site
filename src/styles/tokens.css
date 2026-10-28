@@ -1,0 +1,64 @@
+/*
+  tokens da identidade byDani: único lugar com cor, fonte, espaço e textura soltos.
+  cores amostradas do banner do bio.site (rosa, laranja, creme, lima) e da proposta comercial
+  (vinho, rosa-claro, lavanda, verde). contraste: creme e lima sobre rosa só em texto grande (>= 24px).
+*/
+:root {
+  /* cor */
+  --color-magenta: #ef0066;
+  --color-magenta-light: #ff3d8f;
+  --color-wine: #2e0716;
+  --color-wine-soft: #4a0f26;
+  --color-cream: #fff1cd;
+  --color-paper: #fff8e6;
+  --color-lime: #e0e385;
+  --color-orange: #ff6738;
+  --color-pink-soft: #f291c5;
+  --color-lavender: #c7c9f7;
+  --color-red: #a3122f;
+  --color-green: #5a8a5e;
+
+  /* fonte */
+  --font-display: 'Anton', 'Impact', 'Arial Narrow', sans-serif;
+  --font-serif: 'Fraunces Variable', 'Georgia', serif;
+  --font-body: 'Outfit Variable', 'Segoe UI', system-ui, sans-serif;
+
+  /* tamanho de texto (fluido entre 360 e 1280 px) */
+  --text-sm: 0.875rem;
+  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+  --text-xl: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
+  --text-2xl: clamp(2.25rem, 1.6rem + 3vw, 4rem);
+  --text-3xl: clamp(3.5rem, 2rem + 8vw, 8.5rem);
+
+  /* espaço */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --space-9: 6rem;
+
+  /* forma */
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.75rem;
+  --radius-pill: 999px;
+  --border-thick: 3px;
+  --shadow-hard: 6px 6px 0 var(--color-wine);
+  --shadow-hard-lg: 10px 10px 0 var(--color-wine);
+
+  /* medida */
+  --content-max: 72rem;
+  --lace-r: 14px;
+
+  /* movimento */
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* textura de granulado (ruído svg), como nas artes dela */
+  --texture-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}

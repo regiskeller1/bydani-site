@@ -1,0 +1,44 @@
+---
+// rabiscos grossos de fundo, como na capa da proposta comercial; decorativo
+interface Props {
+  color?: string;
+}
+
+const { color = 'var(--color-magenta-light)' } = Astro.props;
+---
+
+<svg class="squiggles" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <g fill="none" stroke={color} stroke-width="34" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M-60 140 C 80 20, 160 260, 300 130 S 500 10, 620 150 S 840 290, 960 140 S 1160 40, 1290 170"></path>
+    <path d="M-80 560 C 60 440, 210 680, 350 540 S 570 380, 720 540 S 920 700, 1080 560 S 1250 430, 1320 580"></path>
+    <path d="M880 -40 C 830 90, 1040 120, 990 250 S 790 330, 880 460 S 1100 520, 1060 660"></path>
+    <path d="M140 820 C 120 720, 280 700, 250 600 S 80 480, 170 390"></path>
+  </g>
+</svg>
+
+<style>
+  .squiggles {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .squiggles path {
+    stroke-dasharray: 1400 260;
+    animation: squiggle-drift 26s linear infinite;
+  }
+
+  .squiggles path:nth-child(2n) {
+    animation-direction: reverse;
+    animation-duration: 32s;
+  }
+
+  @keyframes squiggle-drift {
+    to {
+      stroke-dashoffset: -1660;
+    }
+  }
+</style>

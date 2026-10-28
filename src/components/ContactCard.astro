@@ -1,0 +1,175 @@
+---
+// cartão de contato no estilo dos cartões vinho da proposta: título grande vazando o topo,
+// trilho com estrela e etiqueta recortada (ticket) com o dado de contato
+import Icon from './Icon.astro';
+import Star from './Star.astro';
+
+interface Props {
+  icon: 'whatsapp' | 'email' | 'instagram';
+  title: string;
+  href: string;
+  display: string;
+  note?: string;
+  tone: 'lime' | 'pink' | 'orange';
+  external?: boolean;
+  index?: number;
+}
+
+const { icon, title, href, display, note, tone, external = false, index = 0 } = Astro.props;
+const toneVar = { lime: 'var(--color-lime)', pink: 'var(--color-pink-soft)', orange: 'var(--color-orange)' }[tone];
+---
+
+<a
+  class="card"
+  href={href}
+  style={`--tone: ${toneVar}; --i: ${index}; --reveal-rotate: ${index % 2 ? 2 : -2}deg`}
+  data-reveal
+  {...external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
+>
+  <span class="card__title">{title}</span>
+  <span class="card__body">
+    <span class="card__rail" aria-hidden="true">
+      <Star color="var(--tone)" class="card__star" />
+    </span>
+    <span class="card__content">
+      {note && <span class="card__note">{note}</span>}
+      <span class="card__ticket">
+        <Icon name={icon} class="card__icon" />
+        {/* quebra permitida só depois do @, nunca no meio do domínio */}
+        <span class="card__display">{display.split('@').map((part, i) => (i ? <>@<wbr />{part}</> : part))}</span>
+      </span>
+    </span>
+  </span>
+  {external && <span class="visually-hidden">(abre em nova aba)</span>}
+</a>
+
+<style>
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-7) var(--space-5) var(--space-5);
+    margin-top: var(--space-6);
+    background: var(--color-wine);
+    color: var(--color-cream);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    box-shadow: 0 0 0 var(--color-wine);
+    transition:
+      transform 0.35s var(--ease-bounce),
+      box-shadow 0.35s var(--ease-bounce);
+  }
+
+  .card:hover {
+    transform: translate(-4px, -6px) rotate(-1.2deg);
+    box-shadow: 8px 10px 0 var(--tone);
+  }
+
+  .card__title {
+    position: absolute;
+    top: 0;
+    left: var(--space-5);
+    transform: translateY(-58%);
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--tone);
+    /* contorno vinho: o título vaza para o fundo creme, onde lima e rosa sozinhos não têm contraste */
+    -webkit-text-stroke: 8px var(--color-wine);
+    paint-order: stroke fill;
+    letter-spacing: 0.02em;
+    filter: url(#fuzzy);
+  }
+
+  .card__body {
+    display: flex;
+    gap: var(--space-4);
+  }
+
+  .card__rail {
+    position: relative;
+    flex: none;
+    width: 1.75rem;
+  }
+
+  /* trilho magenta sob a estrela, como nos pacotes da proposta */
+  .card__rail::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 1.5rem;
+    bottom: 0;
+    width: 6px;
+    transform: translateX(-50%);
+    background: var(--color-magenta);
+    border-radius: var(--radius-pill);
+  }
+
+  :global(.card__star) {
+    position: relative;
+    z-index: 1;
+    width: 1.75rem;
+    transition: transform 0.6s var(--ease-bounce);
+  }
+
+  .card:hover :global(.card__star) {
+    transform: rotate(144deg) scale(1.2);
+  }
+
+  .card__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    min-width: 0;
+    flex: 1;
+  }
+
+  .card__note {
+    font-size: var(--text-lg);
+    line-height: 1.25;
+  }
+
+  /* etiqueta com recortes semicirculares nas laterais */
+  .card__ticket {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    align-self: flex-start;
+    max-width: 100%;
+    padding: var(--space-3) var(--space-5);
+    background: var(--tone);
+    color: var(--color-wine);
+    font-weight: 700;
+    font-size: var(--text-lg);
+    mask:
+      radial-gradient(circle at 0 50%, transparent 9px, #000 10px) left / 51% 100% no-repeat,
+      radial-gradient(circle at 100% 50%, transparent 9px, #000 10px) right / 51% 100% no-repeat;
+  }
+
+  @media (max-width: 479px) {
+    .card {
+      padding-inline: var(--space-4);
+    }
+
+    .card__body {
+      gap: var(--space-3);
+    }
+
+    .card__ticket {
+      padding-inline: var(--space-4);
+      font-size: var(--text-base);
+    }
+  }
+
+  :global(.card__icon) {
+    flex: none;
+    width: 1.6rem;
+    height: 1.6rem;
+    transition: transform 0.4s var(--ease-bounce);
+  }
+
+  .card:hover :global(.card__icon) {
+    transform: scale(1.2) rotate(-10deg);
+  }
+</style>

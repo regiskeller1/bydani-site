@@ -1,0 +1,18 @@
+---
+// estrela de cinco pontas das artes da byDani; decorativa
+interface Props {
+  color?: string;
+  class?: string;
+  style?: string;
+}
+
+const { color = 'var(--color-lime)', class: className, style } = Astro.props;
+---
+
+<svg class:list={['star', className]} style={style} viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+  <polygon
+    points="50,4 61.8,35.8 95.6,37.2 69,58.2 78.2,90.8 50,72 21.8,90.8 31,58.2 4.4,37.2 38.2,35.8"
+    fill={color}
+    stroke-linejoin="round"
+  ></polygon>
+</svg>
