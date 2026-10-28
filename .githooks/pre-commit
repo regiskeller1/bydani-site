@@ -1,0 +1,3 @@
+#!/bin/sh
+# trava de segredos: ver .githooks/verificar-segredos.js
+exec node "$(git rev-parse --show-toplevel)/.githooks/verificar-segredos.js"

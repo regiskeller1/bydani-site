@@ -1,0 +1,30 @@
+# dependências e saída de build
+node_modules/
+dist/
+build/
+.next/
+.astro/
+.vercel/
+.netlify/
+.wrangler/
+.cache/
+
+# segredo: mora só aqui
+.env
+.env.*
+!.env.example
+
+# originais pesados da designer (PSD, AI, Figma export, fotos cruas): ficam na máquina
+assets/originais/
+
+# registro local das publicações e config local do Claude
+.claude/auditoria-publicacoes.log
+.claude/settings.local.json
+
+# python (status line)
+__pycache__/
+*.pyc
+
+# sistema
+.DS_Store
+Thumbs.db

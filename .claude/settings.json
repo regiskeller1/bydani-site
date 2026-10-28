@@ -1,0 +1,72 @@
+{
+  "outputStyle": "Concise",
+  "env": {
+    "CLAUDE_CODE_AUTO_COMPACT_WINDOW": "300000"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "python \"${CLAUDE_PROJECT_DIR:-.}/.claude/statusline.py\"",
+    "refreshInterval": 60
+  },
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "permissions": {
+    "deny": [
+      "Read(./.env)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "bash",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/abertura.js\"",
+            "timeout": 10,
+            "statusMessage": "Conferindo briefing, trava de commit e publicações recentes"
+          }
+        ]
+      },
+      {
+        "matcher": "compact|clear",
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "bash",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/rotear.js\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash|PowerShell|Read|Edit|Write|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "bash",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/guarda.js\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash|PowerShell|Read|Edit|Write|Grep|Glob",
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "bash",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/rotear.js\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
