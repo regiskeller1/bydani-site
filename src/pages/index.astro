@@ -218,8 +218,8 @@ const marqueeItems = ['Designer para redes sociais & projetos', 'A sua Designer 
     background: var(--color-lavender);
     opacity: 0.88;
     transform: translateX(-50%) rotate(-6deg);
-    mask: conic-gradient(from 45deg at left, #0000 25%, #000 0) 0 50% / 51% 8px repeat-y,
-      conic-gradient(from -135deg at right, #0000 25%, #000 0) 100% 50% / 51% 8px repeat-y;
+    /* pontas em zigue-zague, como fita rasgada */
+    clip-path: polygon(0 0, 100% 0, 95% 25%, 100% 50%, 95% 75%, 100% 100%, 0 100%, 5% 75%, 0 50%, 5% 25%);
   }
 
   .hero__text {
